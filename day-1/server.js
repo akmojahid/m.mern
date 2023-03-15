@@ -1,21 +1,22 @@
 const cors = require("cors");
 const express = require("express");
-const mongoose = require("mongoose");
-const db = require("./model");
+const routes = require("./route-handlr");
 const app = express();
 
-//middleware
+//Middleware goes here
 app.use(cors());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/signup", (req, res) => [res.send("Hello world")]);
-
-app.post("/signup", async (req, res) => {
-  db.connectDB();
-  const data = db.User(req.body).save();
-  res.status(201);
-  res.send(data);
+//Routes goes here
+app.get("/", (req, res) => {
+  res.send("WELLCOME!");
 });
 
-app.listen(3000, console.log("Server running on port 3000\n"));
+app.get("/signup", (req, res) => {
+  res.send("Hello world");
+});
+app.post("/signup", routes.signupHandlr);
+
+const port = process.env.PORT || 3000;
+app.listen(port, console.log("Server running Localhost:3000.."));
