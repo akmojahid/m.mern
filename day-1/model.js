@@ -18,12 +18,14 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   pass: {
     type: String,
     required: true,
   },
   termAgree: Boolean,
+  token: String,
 });
 
 const User = mongoose.model("UserInfo", userSchema);
