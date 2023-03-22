@@ -7,17 +7,14 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 //Routes goes here
 app.get("/", (req, res) => {
   res.send("WELLCOME!");
 });
 
-app.get("/signup", (req, res) => {
-  res.send("Hello world");
-});
-
+//Signup and signin routs
 app.post("/signup", routes.signupHandlr);
+app.post("/signin", routes.signinHandlr);
 
 const port = process.env.PORT || 3000;
 app.listen(port, console.log("Server running Localhost:3000.."));
