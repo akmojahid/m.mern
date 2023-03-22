@@ -1,18 +1,24 @@
+require("dotenv").config();
 const db = require("./model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 //local variables
-const db_uri =
-  "mongodb+srv://akmojahid:017766512@cluster0.yzipuzi.mongodb.net/?retryWrites=true&w=majority";
-const SECRET_KEY = "cluster0.yzipuzi.mongodb.net/?retryWrites=true&w=majority";
+const db_uri = process.env.DB_URI;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 exports.signupHandlr = async (req, res) => {
+  db.connectDB(db_uri);
+
   try {
     const { name, email, termAgree, pass } = req.body;
+  
     const hashedPass = await bcrypt.hash(pass, 10);
+  
     const user = new db.User({ name, email, termAgree, pass: hashedPass });
+  
     const savedUser = await user.save();
+  
     const token = jwt.sign({ user_id: user._id, email }, SECRET_KEY, {
       expiresIn: "2h",
     });

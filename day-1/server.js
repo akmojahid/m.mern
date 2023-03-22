@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
 app.get("/signup", (req, res) => {
   res.send("Hello world");
 });
+
 app.post("/signup", routes.signupHandlr);
 
 const port = process.env.PORT || 3000;

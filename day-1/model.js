@@ -24,7 +24,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  termAgree: Boolean,
+  termAgree: {
+    type: Boolean,
+    enum: [true, false],
+  },
   token: String,
 });
 
